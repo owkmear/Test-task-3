@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { Provider } from 'react-redux'
+import store from './store'
+import { Row, Col } from 'antd'
+import Table from './components/Table'
+import Search from './components/Search'
+import Title from './components/Typography/Title'
+import './App.css'
+import 'antd/dist/antd.css'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+      <Provider store={store}>
+        <Row justify="center">
+          <Col xs={22} sm={20} md={18} lg={16} xl={14}>
+            <Title text="Todos" />
+            <Search />
+            <Table />
+          </Col>
+        </Row>
+      </Provider>
+  )
 }
 
-export default App;
+export default App
