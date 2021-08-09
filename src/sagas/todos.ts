@@ -1,7 +1,7 @@
 import { put, take, fork, select } from 'redux-saga/effects'
 import { Action } from 'redux'
 import axios from 'axios'
-import { TODOS_GET, TODOS_SET_FILTER } from '../constants/ActionTypes'
+import { TODOS_GET } from '../constants/ActionTypes'
 import { actions } from '../reducers'
 import { Todo, ServerAnswer, AppState, TodosFilter, CompletedFilter, TodosParams } from '../model'
 
@@ -46,14 +46,10 @@ export function* todosSaga() {
     let outer = true
     while (outer) {
       try {
-        const action: Action = yield take([TODOS_GET, TODOS_SET_FILTER])
+        const action: Action = yield take([TODOS_GET])
         yield fork(function* () {
           switch (action.type) {
             case TODOS_GET: {
-              yield fork(getTodos)
-              break
-            }
-            case TODOS_SET_FILTER: {
               yield fork(getTodos)
               break
             }
