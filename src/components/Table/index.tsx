@@ -39,7 +39,7 @@ const Table: FC = () => {
 
   useEffect(() => {
     debounceFilter()
-  }, [filter.title, filter.completed])
+  }, [debounceFilter, filter.title, filter.completed])
 
   return <>{error ? <Message text={error} /> : <AntdTable bordered dataSource={todosList} columns={columns} size="small" pagination={{ position: ['bottomCenter'] }} />}</>
 }
