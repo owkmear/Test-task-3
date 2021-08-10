@@ -1,23 +1,14 @@
-import {
-  createAction,
-  createReducer,
-  PayloadAction
-} from "typesafe-actions"
-import {
-  TODOS_GET,
-  TODOS_RECEIVED,
-  TODOS_SET_FILTER,
-  TODOS_SET_ERROR
-} from '../constants/ActionTypes'
+import { createAction, createReducer, PayloadAction } from 'typesafe-actions'
+import { TODOS_GET, TODOS_RECEIVED, TODOS_SET_FILTER, TODOS_SET_ERROR } from '../constants/ActionTypes'
 import { Todo, TodosFilter, CompletedFilter } from '../model'
 
 export type TodosState = {
-  todosList: Todo[]
-  filter: TodosFilter
+  todosList: Todo[],
+  filter: TodosFilter,
   error: string
 }
 
-const defaultState: TodosState = {
+export const defaultState: TodosState = {
   todosList: [],
   filter: {
     title: '',
@@ -34,35 +25,26 @@ export const actions = {
 }
 
 const reducer = createReducer(defaultState)
-  .handleAction(
-    actions.putTodosInStore,
-    (state: TodosState, action: PayloadAction<string, Todo[]>) => {
-      return {
-        ...state,
-        todosList: action.payload
+  .handleAction(actions.putTodosInStore, (state: TodosState, action: PayloadAction<string, Todo[]>) => {
+    return {
+      ...state,
+      todosList: action.payload
+    }
+  })
+  .handleAction(actions.setTodosFilter, (state: TodosState, action: PayloadAction<string, TodosFilter>) => {
+    return {
+      ...state,
+      filter: {
+        ...state.filter,
+        ...action.payload
       }
     }
-  )
-  .handleAction(
-    actions.setTodosFilter,
-    (state: TodosState, action: PayloadAction<string, TodosFilter>) => {
-      return {
-        ...state,
-        filter: {
-          ...state.filter,
-          ...action.payload
-        }
-      }
+  })
+  .handleAction(actions.setTodosError, (state: TodosState, action: PayloadAction<string, string>) => {
+    return {
+      ...state,
+      error: action.payload
     }
-  )
-  .handleAction(
-    actions.setTodosError,
-    (state: TodosState, action: PayloadAction<string, string>) => {
-      return {
-        ...state,
-        error: action.payload
-      }
-    }
-  )
+  })
 
 export default reducer

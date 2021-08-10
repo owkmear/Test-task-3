@@ -2,7 +2,6 @@ import { TodosState } from './reducers/todos'
 
 export type AppState = {
   todos: TodosState
-  filter: TodosFilter
 }
 
 export namespace ServerAnswer {

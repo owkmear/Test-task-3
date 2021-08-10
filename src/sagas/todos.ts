@@ -26,11 +26,12 @@ export function* todosSaga() {
       todos: { filter, error }
     } = state
     const params = constructParams(filter)
-    const data: Todo[] = yield axios({
+    const request: ServerAnswer.Todos = yield axios({
       method: 'get',
       url: 'https://jsonplaceholder.typicode.com/todos',
       params
-    }).then((response: ServerAnswer.Todos) => response.data)
+    })
+    const data: Todo[] = request.data
 
     let errorMessage: string
     if (data.length === 0 && Object.keys(params).length !== 0) errorMessage = 'No result for given search parameters!'
